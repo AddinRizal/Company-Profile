@@ -14,7 +14,7 @@ class Appointment extends Model
         'phone_number',
         'name',
         'email',
-        'meeting_at',
+        'meeting_at', // secara defaulth string
         'budget',
         'brief',
         'product_id',

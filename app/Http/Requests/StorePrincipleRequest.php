@@ -4,14 +4,14 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreAppoinmentRequest extends FormRequest
+class StorePrincipleRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,6 +23,10 @@ class StoreAppoinmentRequest extends FormRequest
     {
         return [
             //
+            'name' => ['required', 'string', 'max:255'],
+            'subtitle' => ['required', 'string', 'max:255'],
+            'thumbnail' => ['required', 'image', 'mimes:png,jpg,jpeg'],
+            'icon' => ['required', 'image', 'mimes:png,jpg,jpeg'],
         ];
     }
 }

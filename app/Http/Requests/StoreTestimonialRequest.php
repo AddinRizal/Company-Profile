@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdatePrincipleRequest extends FormRequest
+class StoreTestimonialRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,10 +23,9 @@ class UpdatePrincipleRequest extends FormRequest
     {
         return [
             //
-            'name' => ['required', 'string', 'max:255'],
-            'subtitle' => ['required', 'string', 'max:255'],
-            'thumbnail' => ['sometimes', 'image', 'mimes:png,jpg,jpeg'],
-            'icon' => ['sometimes', 'image', 'mimes:png,jpg,jpeg'],
+            'message' => ['required', 'string', 'max:255'],
+            'project_client_id' => ['required', 'integer'],
+            'thumbnail' => ['required', 'image', 'mimes:png,jpg,jpeg'],
         ];
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\CompanyKeypoint;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CompanyKeypointController extends Controller
 {
@@ -12,7 +13,8 @@ class CompanyKeypointController extends Controller
      */
     public function index()
     {
-        //
+        $keypoints = CompanyKeypoint::orderByDesc('id')->paginate(10);
+        return view('admin.keypoints.index', compact('keypoints')); 
     }
 
     /**
@@ -21,6 +23,7 @@ class CompanyKeypointController extends Controller
     public function create()
     {
         //
+        return view('admin.keypoints.create');
     }
 
     /**
@@ -29,6 +32,19 @@ class CompanyKeypointController extends Controller
     public function store(Request $request)
     {
         //
+        DB::transaction(function() use ($request) {
+            $validated=$request->validated();
+
+            if($request->hasFile('icon')){
+                $iconPath=$request->file('icon')->store('icons', 'public');
+                $validated['icon']=$iconPath;
+            }
+
+            $newCompanyKeypoint = CompanyKeypoint::create($validated);
+
+        });
+        
+        return redirect()->route('admin.keypoints.index');
     }
 
     /**
@@ -61,5 +77,10 @@ class CompanyKeypointController extends Controller
     public function destroy(CompanyKeypoint $companyKeypoint)
     {
         //
+        DB::transaction(function () use ($companyKeypoint) {
+            $companyKeypoint->delete();
+        });
+    
+        return redirect()->route('admin.keypoints.index');
     }
 }

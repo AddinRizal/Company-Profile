@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreAppointmentRequest;
 use App\Models\Appointment;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class AppointmentController extends Controller
@@ -12,7 +14,8 @@ class AppointmentController extends Controller
      */
     public function index()
     {
-        //
+        $appointments = Appointment::orderByDesc('id')->paginate(3);
+        return view('admin.appointments.index', compact('appointments'));
     }
 
     /**
@@ -21,14 +24,15 @@ class AppointmentController extends Controller
     public function create()
     {
         //
+        return view('admin.appointments.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreAppointmentRequest $request)
     {
-        //
+        //   
     }
 
     /**
@@ -37,6 +41,7 @@ class AppointmentController extends Controller
     public function show(Appointment $appointment)
     {
         //
+        return view('admin.appointments.details', compact('appointment'));
     }
 
     /**
@@ -45,6 +50,8 @@ class AppointmentController extends Controller
     public function edit(Appointment $appointment)
     {
         //
+            // return view('admin.appointments.edit', compact('appointment'));
+
     }
 
     /**
@@ -61,5 +68,10 @@ class AppointmentController extends Controller
     public function destroy(Appointment $appointment)
     {
         //
+        DB::transaction(function () use ($appointment) {
+            $appointment->delete();
+        });
+    
+        return redirect()->route('admin.appointments.index');
     }
 }

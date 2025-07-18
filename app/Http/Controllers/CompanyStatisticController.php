@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreStatisticRequest;
 use App\Http\Requests\UpdateStatisticRequest;
 use App\Models\CompanyStatistic;
-use DB;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class CompanyStatisticController extends Controller
@@ -27,34 +27,35 @@ class CompanyStatisticController extends Controller
     {
         //
         return view('admin.statistics.create');
+
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreStatisticRequest $request)
+    public function store (StoreStatisticRequest $request)
     {
-        // insert into database 
-        // closure based transactions
-
-        DB::transaction(function () use ($request) {
-            $validated = $request->validated();
+        // dd($request->all()); // Memastikan data yang diterima sudah benar
+        // insert kepada database bakalan disini
+        DB::transaction(function() use ($request) {
+            $validated=$request->validated();
 
             if($request->hasFile('icon')){
-                $iconPath = $request->file('icon')->store('icons', 'public');
-                $validated['icon'] = $iconPath;
+                $iconPath=$request->file('icon')->store('icons', 'public');
+                $validated['icon']=$iconPath;
             }
 
-            $newDataRecored = CompanyStatistic::create($validated);
-        });
+            $newDataRecord = CompanyStatistic::create($validated);
 
+        });
+        
         return redirect()->route('admin.statistics.index');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(CompanyStatistic $companyStatistic)
+    public function show(CompanyStatistic $statistic)
     {
         //
     }
@@ -66,6 +67,7 @@ class CompanyStatisticController extends Controller
     {
         //
         return view('admin.statistics.edit', compact('statistic'));
+
     }
 
     /**
@@ -74,18 +76,20 @@ class CompanyStatisticController extends Controller
     public function update(UpdateStatisticRequest $request, CompanyStatistic $statistic)
     {
         //
-        DB::transaction(function () use ($request, $statistic) {
-            $validated = $request->validated();
+        DB::transaction(function() use ($request, $statistic) {
+            $validated=$request->validated();
 
             if($request->hasFile('icon')){
-                $iconPath = $request->file('icon')->store('icons', 'public');
-                $validated['icon'] = $iconPath;
+                $iconPath=$request->file('icon')->store('icons', 'public');
+                $validated['icon']=$iconPath;
             }
 
             $statistic->update($validated);
-        });
 
+        });
+        
         return redirect()->route('admin.statistics.index');
+        
     }
 
     /**
@@ -94,10 +98,9 @@ class CompanyStatisticController extends Controller
     public function destroy(CompanyStatistic $statistic)
     {
         //
-        DB::transaction(function() use ($statistic){
+        DB::transaction(function() use ($statistic) {
             $statistic->delete();
         });
-
         return redirect()->route('admin.statistics.index');
     }
 }

@@ -11,9 +11,14 @@ class ProjectClient extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'occupation',
         'name',
+        'occupation',
         'avatar',
         'logo',
     ];
+
+    // public function testimonials()
+    // {
+    //     return $this->hasMany(Testimonial::class, 'project_client_id');
+    // }
 }

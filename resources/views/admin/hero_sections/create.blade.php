@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('New Hero Section') }}
+            {{ __('New Hero_Section') }}
         </h2>
     </x-slot>
 
@@ -9,15 +9,15 @@
         <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden p-10 shadow-sm sm:rounded-lg"> 
                 
-                @if($errors->any())
-                    @foreach($errors->all() as $error)
-                    <div class=""py-3 w-full rounded-3xl bg-red-500 text-white">
-                        {{$error}}
-                    </div>
+                @if ($errors->any())
+                    @foreach ($errors->all() as $error)
+                        <div class="py-3 w-full rounded-3xl bg-red-500 text-white">
+                            {{ $error }}
+                        </div>
                     @endforeach
                 @endif
-            
-                <form method="POST" action="{{route('admin.hero_sections.store')}} " enctype="multipart/form-data"> 
+                
+                <form method="POST" action="{{route('admin.hero_sections.store')}}" enctype="multipart/form-data"> 
                     @csrf
                     <div>
                         <x-input-label for="heading" :value="__('heading')" />
@@ -38,9 +38,9 @@
                     </div>
 
                     <div class="mt-4">
-                        <x-input-label for="achievement" :value="__('achievment')" />
-                        <x-text-input id="achievment" class="block mt-1 w-full" type="text" name="achievment" :value="old('achievment')" required autofocus autocomplete="achievment" />
-                        <x-input-error :messages="$errors->get('achievment')" class="mt-2" />
+                        <x-input-label for="achievement" :value="__('achievement')" />
+                        <x-text-input id="achievement" class="block mt-1 w-full" type="text" name="achievement" :value="old('achievement')" required autofocus autocomplete="achievement" />
+                        <x-input-error :messages="$errors->get('achievement')" class="mt-2" />
                     </div>
 
                     <div class="mt-4">

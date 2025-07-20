@@ -8,25 +8,24 @@
     <div class="py-12">
         <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden p-10 shadow-sm sm:rounded-lg"> 
-                
-                @if($errors->any())
-                    @foreach($errors->all() as $error)
-                    <div class=""py-3 w-full rounded-3xl bg-red-500 text-white">
-                        {{$error}}
-                    </div>
+            
+                @if ($errors->any())
+                    @foreach ($errors->all() as $error)
+                        <div class="py-3 w-full rounded-3xl bg-red-500 text-white">
+                            {{ $error }}
+                        </div>
                     @endforeach
                 @endif
 
-                <form method="POST" action="{{route('admin.testimonials.store')}} " enctype="multipart/form-data">
+                <form method="POST" action="{{route('admin.testimonials.store')}}" enctype="multipart/form-data">
                     @csrf
-
                     <div class="mt-4">
                         <x-input-label for="project_client" :value="__('project_client')" />
                         
                         <select name="project_client_id" id="project_client_id" class="py-3 rounded-lg pl-3 w-full border border-slate-300">
                             <option value="">Choose project_client</option>
-                            @foreach($clients as $client)
-                            <option value="{{$client->id}}">{{$client->name}}</option> 
+                            @foreach ($clients as $client)
+                            <option value="{{$client->id}}">{{$client->name}}</option>
                             @endforeach
                         </select>
 

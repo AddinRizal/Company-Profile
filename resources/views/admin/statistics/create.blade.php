@@ -7,17 +7,17 @@
 
     <div class="py-12">
         <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden p-10 shadow-sm sm:rounded-lg"> 
-                
-                @if($errors->any())
-                    @foreach($errors->all() as $error)
-                    <div class=""py-3 w-full rounded-3xl bg-red-500 text-white">
-                        {{$error}}
-                    </div>
+            <div class="bg-white overflow-hidden p-10 shadow-sm sm:rounded-lg">
+
+                @if ($errors->any())
+                    @foreach ($errors->all() as $error)
+                        <div class="py-3 w-full rounded-3xl bg-red-500 text-white">
+                            {{ $error }}
+                        </div>
                     @endforeach
                 @endif
-
-                <form method="POST" action="{{route('admin.statistics.store')}} " enctype="multipart/form-data"> 
+                
+                <form method="POST" action="{{route('admin.statistics.store')}}" enctype="multipart/form-data"> 
                     @csrf
                     <div>
                         <x-input-label for="name" :value="__('Name')" />
@@ -26,13 +26,13 @@
                     </div>
 
                     <div class="mt-4">
-                        <x-input-label for="icon" :value="__('icon')" />
+                        <x-input-label for="icon" :value="__('Icon')" />
                         <x-text-input id="icon" class="block mt-1 w-full" type="file" name="icon" required autofocus autocomplete="icon" />
                         <x-input-error :messages="$errors->get('icon')" class="mt-2" />
                     </div>
 
                     <div class="mt-4">
-                        <x-input-label for="goal" :value="__('goal')" />
+                        <x-input-label for="goal" :value="__('Goal')" />
                         <x-text-input id="goal" class="block mt-1 w-full" type="text" name="goal" :value="old('goal')" required autofocus autocomplete="goal" />
                         <x-input-error :messages="$errors->get('goal')" class="mt-2" />
                     </div>

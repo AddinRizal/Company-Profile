@@ -8,16 +8,14 @@
     <div class="py-12">
         <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden p-10 shadow-sm sm:rounded-lg"> 
-                
-                @if($errors->any())
-                    @foreach($errors->all() as $error)
-                    <div class=""py-3 w-full rounded-3xl bg-red-500 text-white">
-                        {{$error}}
-                    </div>
+                @if ($errors->any())
+                    @foreach ($errors->all() as $error)
+                        <div class="py-3 w-full rounded-3xl bg-red-500 text-white">
+                            {{ $error }}
+                        </div>
                     @endforeach
-                @endif
-
-                <form method="POST" action="{{route('admin.statistics.update', $statistic)}} " enctype="multipart/form-data"> 
+                @endif       
+                <form method="POST" action="{{route('admin.statistics.update', $statistic)}}" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <div>
@@ -37,7 +35,7 @@
                     <div class="mt-4">
                         <x-input-label for="goal" :value="__('goal')" />
                         <x-text-input id="goal" class="block mt-1 w-full" type="text" name="goal" 
-                        value="{{$statistic->name}}" required autofocus autocomplete="goal" />
+                        value="{{$statistic->goal}}" required autofocus autocomplete="goal" />
                         <x-input-error :messages="$errors->get('goal')" class="mt-2" />
                     </div>
 

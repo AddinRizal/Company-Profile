@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateHeroSectionRequest extends FormRequest
+class StoreHeroSectionRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,12 +22,12 @@ class UpdateHeroSectionRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'heading' => 'required|string|max:255',
+            'achievement' => 'required|string|max:255',
+            'subheading' => 'required|string|max:255',
+            'path_video' => 'required|string|max:255',
+            'banner' => ['required', 'image', 'mimes:png,jpg,jpeg'],
             //
-            'heading' => ['required', 'string', 'max:255'],
-            'achievment' => ['required', 'string', 'max:255'],
-            'subheading' => ['required', 'string', 'max:255'],
-            'path_video' => ['required', 'string', 'max:255'],
-            'banner' => ['sometimes', 'image', 'mimes:png,jpg,jpeg'],
         ];
     }
 }

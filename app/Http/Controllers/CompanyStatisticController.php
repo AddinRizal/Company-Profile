@@ -37,6 +37,10 @@ class CompanyStatisticController extends Controller
     {
         // dd($request->all()); // Memastikan data yang diterima sudah benar
         // insert kepada database bakalan disini
+        // closure-based transactions are used to ensure that all operations within the closure are treated as a single unit of work. If any operation fails, the entire transaction is rolled back, ensuring data integrity.
+        // This is particularly useful when you need to perform multiple database operations that depend on each other
+        // and you want to ensure that either all operations succeed or none do.
+        // This helps maintain the integrity of your database and prevents partial updates that could lead to inconsistent
         DB::transaction(function() use ($request) {
             $validated=$request->validated();
 
